@@ -27,102 +27,14 @@
 
 
 
-# Import all dependencies 
-import csv
+# Import built-in dependencies 
 import string
 import re
-rootPath = "/Users/fr146574/Desktop/ESTIAM/E4_2022-2023/COURS/Python/Cours3/"
+# Import local dependencies and classes
+from Files import Files as File
+from Data import Data
 
-
-
-
-class File :
-    def getAllDataFromCSV(fileName) :
-        try :
-            # Prepare the res data
-            headTable = []
-            bodyTable = []
-
-            # Set default fileName
-            if fileName == None :
-                fileName = "pythonDB.csv"
-            filePath = rootPath + fileName
-
-            # Open the csv file
-            with open(filePath, newline='') as file:
-                # Read the data from csv file
-                csvReader = csv.reader(file)
-                try :
-                    # Set the header of the DT
-                    headTable = next(csvReader)
-                    
-                    # Set the content of the DT
-                    for row in csvReader:
-                        bodyTable.append(row)
-                except :
-                    print("The file contains no data")
-
-            # Prepare the response
-            return {
-                "mess" : "ok", 
-                "code" : 200, 
-                "data" : {"head" : headTable, "body" : bodyTable}
-            }
-            
-        except Exception as err: 
-            # Display warning message
-            print(f"An error occured : \n {err}")
-            # Prepare the response
-            return {
-                "mess" : "bad",
-                "code" : 500, 
-                "data" : {"head" : [], "body" : []}
-            }
-    def putDataIntoCSV(fileName, data):
-        print("<putDataIntoCSV> started ..")
-        try :
-            # Set default fileName
-            if fileName == None :
-                fileName = "pythonDB.csv"
-            filePath = rootPath + fileName
-            print(f"filePath : {filePath}")
-
-            # Append all new data rows to the existing csv file data
-            for row in data :
-                with open(filePath, 'a') as file:
-                    file.write(
-                        "\n"+
-                        str(row["id"])+", " +
-                        str(row["lname"])+", " +
-                        str(row["fname"])+", " +
-                        str(row["age"])+", " +
-                        str(row["city"])
-                    )
-
-        except Exception as err :
-            # Display warning message
-            print(f"Can't write data into csv file because an error occured : \n {err}")
-
-
-class Data :
-    # Get all data 
-    def getAllRecords () :
-        res = None
-        try :
-            query = File.getAllDataFromCSV(None)
-            # Valid query result
-            if query : 
-                if query["mess"] == "ok" or query["code"] == 200 :
-                    res = query
-            # Invalid query result
-            else :
-                res = "No data records found."
-        except Exception as e: 
-            print("An error occured : ")
-            print(e)
-            res = None
-        finally :
-            return res
+# rootPath = "/Users/fr146574/Desktop/ESTIAM/E4_2022-2023/COURS/Python/Cours3/"
 
 
 
@@ -213,7 +125,6 @@ class Menus :
             except Exception as e :
                 print(f"An error occured222 : \n {e}")
 
-
         # Option 2
         def DisplayAllRecords():
             try :
@@ -253,36 +164,42 @@ class Menus :
             except Exception as e :
                 print(f"An error occured : \n {e}")
 
+        # Option 3
         def FindOneByID():
             try :
                 print('Handle option \'Option 3\'')
             except Exception as e :
                 print(f"An error occured : \n {e}")
-
+        
+        # Option 4
         def FindOneByFName():
             try :
                 print('Handle option \'Option 4\'')
             except Exception as e :
                 print(f"An error occured : \n {e}")
 
+        # Option 5
         def FindOneByLName():
             try :
                 print('Handle option \'Option 5\'')
             except Exception as e :
                 print(f"An error occured : \n {e}")
 
+        # Option 6
         def UpdateOneByID(id):
             try :
                 print('Handle option \'Option 6\'')
             except Exception as e :
                 print(f"An error occured : \n {e}")
-                
+
+        # Option 7
         def DeleteOneByID():
             try :
                 print('Handle option \'Option 7\'')
             except Exception as e :
                 print(f"An error occured : \n {e}")
 
+        # Option 8
         def DeleteAllRecords():
             try :
                 print('Handle option \'Option 8\'')
