@@ -1,13 +1,21 @@
 
 
+import csv
+import os
 
+class myFile :
+    # File constructor
+    def __init__(self, root, file):
+        if not root  :
+            self.root = os.path.dirname(os.path.abspath("__file__")) + "\\"
+        else :
+            self.root = root
 
-class Files :
-    import csv
-    rootPath = "/Users/fr146574/Desktop/ESTIAM/E4_2022-2023/COURS/Python/Cours3/"
+        if not file :
+            self.file = "pythonDB.csv"
+        else :
+            self.file = file
 
-    def __init__(self, rootPath):
-      self.rootPath=rootPath
 
 
     """
@@ -19,21 +27,16 @@ class Files :
             @@head [Array | strings]
             @@body [Array | arrays of string]
     """
-    def getAllDataFromCSV(fileName) :
+    def getAllDataFromCSV(self) :
         # Access the global variables
-        global rootPath
         global csv
 
         try :
             # Prepare the res data
             headTable = []
             bodyTable = []
-
-            # Set default fileName
-            if fileName == None :
-                fileName = "pythonDB.csv"
-            filePath = rootPath + fileName
-
+            filePath = self.root + self.file
+            
             # Open the csv file
             with open(filePath, newline='') as file:
                 # Read the data from csv file
@@ -57,7 +60,10 @@ class Files :
 
         except Exception as err: 
             # Display warning message
-            print(f"An error occured : \n {err}")
+            print("/!\\   Warning ! \n"
+                "An error occured at \n"
+                "  Source : File->getAllDataFromCSV() \n"
+                f"  Error  : {err}")
             # Prepare the response
             return {
                 "mess" : "bad",
@@ -66,18 +72,12 @@ class Files :
             }
 
 
-    def putDataIntoCSV(fileName, data):
+    def putDataIntoCSV(self, data):
         # Access the rootPath variable
-        global rootPath
         global csv
         # print("<putDataIntoCSV> started ..")
         try :
-            # Set default fileName
-            if fileName == None :
-                fileName = "pythonDB.csv"
-            filePath = rootPath + fileName
-            print(f"filePath : {filePath}")
-
+            filePath = self.root + self.file
             # Append all new data rows to the existing csv file data
             for row in data :
                 with open(filePath, 'a') as file:
@@ -89,7 +89,9 @@ class Files :
                         str(row["age"])+", " +
                         str(row["city"])
                     )
+            return "ok"
 
         except Exception as err :
             # Display warning message
             print(f"Can't write data into csv file because an error occured : \n {err}")
+            return 'bad'

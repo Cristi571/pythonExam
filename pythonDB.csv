@@ -1,6 +1,10 @@
 ID, LName, FName, Age, City
 1, Wick, John, 41, Washington
-2, Doe, John, 30, Paris
-3, Smith, Mary, 25, New York
-
-4, Vincent, Fred, 25, Paris
+2, Pitt, Brad, 45, London
+3, Pit, Brad, 45, Londoin
+4, Pit, Brad, 34, London
+5, Pitt, Brad, 45, London
+6, Hugo, Fred, 34, Lyon
+7, Laputa, Federico, 19, Brasov
+8, Vico, Fred, 23, N/A
+9, Rerg, Sqd, N/A, N/A

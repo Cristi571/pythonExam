@@ -31,8 +31,9 @@
 import string
 import re
 # Import local dependencies and classes
-from Files import Files as File
-from Data import Data
+from Models.App import App
+from Models.Files import File
+from Models.Data import Data
 
 # rootPath = "/Users/fr146574/Desktop/ESTIAM/E4_2022-2023/COURS/Python/Cours3/"
 
@@ -62,150 +63,8 @@ class Menus :
                 # Delete
                 7 : 'Delete a person data',
                 # Other options
-                0 : 'Exit',
+                0 : 'Exit App',
             }
-        
-
-        # Option 1
-        def AddNewRecord():
-            try :
-                print(" Adding new person ...")
-                print(" Tip : To delimit combined names use one space (\" \"), rather than (\"-\")")
-                print(" Tape (\"*#\") at any time to exit")
-                print(" For empty facultative data (Age and City) just press \"Enter\"")
-                print("...........................................")
-                newID = 1
-                res = Data.getAllRecords()
-                if(res["mess"] == "ok" or res["code"] == 200) : 
-                    if(len(res["data"]["body"]) > 0) :
-                        lastID = res['data']['body'][-1][0]
-                        newID = int(lastID)+1
-                    else :
-                        print("No data records")
-                else :
-                    print("Can't add new records right now, please try again later.")
-
-                labels = ["First name : ", "Last name : ", "Age : ", "City : "]
-                newRecord = [{"id" : newID, "fname" : "", "lname" : "", "age" : "", "city" : ""}]
-
-                for label in labels :
-                    # Set the First Name
-                    taping = True
-                    # Using a loop to let the user retry taping if invalid value
-                    while(taping) :
-                        userInput = input(label)
-                        # Get the user raw input
-                        if(userInput == "*#") :
-                            print("Operation canceled..")
-                            return 'canceled'
-                        else :
-                            try :
-                                if(label == "First name : ") :
-                                    if(re.match("^[a-zA-Z_ ]+$|\"*#\"", userInput)) :
-                                        print("input matches")
-                                        newRecord[0]["fname"] = string.capwords(userInput)
-                                        taping = False
-                                    else : 
-                                        print("input doesn't match")
-                                elif(label == 'Last name : ') :
-                                    newRecord[0]["lname"] = string.capwords(userInput)
-                                elif(label == 'Age : ') :
-                                    newRecord[0]["age"] = int(userInput)
-                                elif(label == 'City : ') :
-                                    newRecord[0]["city"] = string.capwords(userInput)
-                                
-                            except Exception as e :
-                                print("Invalid input, please retry.")
-                                print(e)
-
-                print("New record data preview :")
-                print(newRecord)
-                File.putDataIntoCSV(None, newRecord)
-
-            except Exception as e :
-                print(f"An error occured222 : \n {e}")
-
-        # Option 2
-        def DisplayAllRecords():
-            try :
-                # print('Handle option \'Option 2\'')
-                res = Data.getAllRecords ()
-                data = res["data"]
-
-                # Prepare header data
-                rowData = ""
-                for cell in data["head"] :
-                    rowData = f"{rowData}{cell} |"
-                # Display header data
-                print(" --------------------------------")
-                print(f"| {rowData}")
-                print(" --------------------------------")
-                
-                # Prepare and display body data
-                for row in data["body"] :
-                    rowData = ""
-                    for cell in row :
-                        rowData = f"{rowData}{cell} |"
-                    print(f"| {rowData}")
-                print(" --------------------------------")
-                # print(res['mess'])
-
-                # Display the menu2 for this section
-                menu2 = True
-                while(menu2) : 
-                    print(" ==========================================")
-                    print("|                   Menu 2                 |")
-                    print(" ..........................................")
-                    Menus.print_menu(Menus.Menu2.Options())
-                    print(" ..........................................")
-                    choise = Menus.Menu2.ManageUserInput()
-                    if(choise == "back" or choise == "exit") :
-                        menu2 = False
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-
-        # Option 3
-        def FindOneByID():
-            try :
-                print('Handle option \'Option 3\'')
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-        
-        # Option 4
-        def FindOneByFName():
-            try :
-                print('Handle option \'Option 4\'')
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-
-        # Option 5
-        def FindOneByLName():
-            try :
-                print('Handle option \'Option 5\'')
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-
-        # Option 6
-        def UpdateOneByID(id):
-            try :
-                print('Handle option \'Option 6\'')
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-
-        # Option 7
-        def DeleteOneByID():
-            try :
-                print('Handle option \'Option 7\'')
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-
-        # Option 8
-        def DeleteAllRecords():
-            try :
-                print('Handle option \'Option 8\'')
-            except Exception as e :
-                print(f"An error occured : \n {e}")
-        
 
 
 
@@ -224,7 +83,7 @@ class Menus :
                     App.kill()
                     return None
                 elif option == 1: Menus.MainMenu.AddNewRecord()
-                elif option == 2: Menus.MainMenu.DisplayAllRecords()
+                elif option == 2: Menus.MainMenu.getAllRecords()
                 elif option == 3: Menus.MainMenu.FindOneByID()
                 elif option == 4: Menus.MainMenu.FindOneByFName()
                 elif option == 5: Menus.MainMenu.FindOneByLName()
@@ -259,7 +118,7 @@ class Menus :
                 7 : 'Delete all data',
                 # Other options
                 8 : 'Back',
-                0 : 'Exit',
+                0 : 'Exit App',
             }
         
         def ManageUserInput() :
@@ -310,33 +169,33 @@ class Menus :
 
 
 
-class App :
-    runState = True
+# class App :
+#     runState = True
 
-    # Used to start the app
-    def run() :
-        # Initiate an instance of MainMenu
-        mainMenu = Menus.MainMenu
-        # Run the app untill exit
-        while(App.runState == True) :
+#     # Used to start the app
+#     def run() :
+#         # Initiate an instance of MainMenu
+#         mainMenu = Menus.MainMenu
+#         # Run the app untill exit
+#         while(App.runState == True) :
 
-            print(" ==========================================")
-            print("|                    Menu                  |")
-            print(" ..........................................")
-            Menus.print_menu(mainMenu.Options())
-            print(" ..........................................")
-            mainMenu.ManageUserInput() 
-            print(" ==========================================")
-        return None
+#             print(" ==========================================")
+#             print("|                    Menu                  |")
+#             print(" ..........................................")
+#             Menus.print_menu(mainMenu.Options())
+#             print(" ..........................................")
+#             mainMenu.ManageUserInput() 
+#             print(" ==========================================")
+#         return None
     
-    # Used to exit the app
-    def kill() :
-        print('Bye, return back soon.')
-        App.runState = False
-        return None
+#     # Used to exit the app
+#     def kill() :
+#         print('Bye, return back soon.')
+#         App.runState = False
+#         return None
 
 
 
-App.run()
+# App.run()
 
         
