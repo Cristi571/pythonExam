@@ -49,7 +49,7 @@ class myApp :
         # or unexpected exception
         while(self.runState == True) :
             try :
-                print(f"currentMenu : {self.currMenu}")
+                # Use clear() to automatically clear the console for better user experience
                 clear = lambda: os.system('cls')
                 # clear()
                 if self.infoMess : 
@@ -59,33 +59,18 @@ class myApp :
                     self.infoMess = None
                 if self.currMenu == myMainMenu:
                     print(wlkmHeader)
-                # else :
-                    # clear()
-                # print("[- Displaying menu.. -]")
-                # print(f"currMenu : {self.currMenu}")
 
-
-                print("[- 1 Content/Data.. -]")
                 data = self.currMenu.Content()
-                # print(f"data : {data}")
                 if data == "**cancel" :
                     data = None
-                    # decision = None
-                    # self.prevMenu, self.currMenu = myMainMenu, myMainMenu
-                    # self.infoMess = "Operation canceled.."
-                    # continue
 
-                print("[- 2 Menu options.. -]")
                 # Create and print the menu interface to display
                 options = self.currMenu.Options()
                 print(self.MenuInterface(options))
 
 
-                print("[- 3 Decision.. -]")
                 # Get the user input
                 decision = self.currMenu.Decisions()
-                print(f"decision : {decision}")
-                print(f"type of decision : {type(decision)}")
 
                 # print("[- Set decision.. -]")
                 if decision == "killMe" :

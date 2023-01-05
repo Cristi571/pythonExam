@@ -7,7 +7,12 @@ class menuDelete :
 
     def __init__(self, query) :
         self.query = query
-        if query : self.DeleteBy(query)
+        # Check if the query is given
+        if query : 
+            if query == "all" : 
+                self.DeleteAll()
+            else :
+                self.DeleteBy(query)
         return None
 
 
@@ -49,15 +54,14 @@ class menuDelete :
                     print('Invalid! Please chose an option from the menu.')
 
         except Exception as e: 
-            # print("An error occured : ")
-            # print(e)
             print('Wrong input! Please enter a number.')
         return None
     
     def DeleteBy(self, query) :
-        print(f"Deleting ..")
-        print(f"query : {query.keys()}")
-        print(f"data : {query.items()}")
         record = myRecords(None, None)
         for key, item in query.items() :
             record.DeleteAllBy(key, item)
+
+    def DeleteAll(self) :
+        record = myRecords(None, None)
+        record.DeleteAllRecords()

@@ -94,9 +94,8 @@ class myFile :
             return 'bad'
     
     def ReWriteDataIntoCSV(self, data) :
-        print(f"data : {data}")
         try : 
-            with open(self.filePath, 'w') as file:
+            with open(self.filePath, 'w', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
                 writer.writerows(data)
             return "Data rewrited successfully."

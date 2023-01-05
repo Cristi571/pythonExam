@@ -5,8 +5,8 @@
 from Models.Records import myRecords
 
 class menuSeeAll :
+
     def Content() :
-        print(" See all ...")
         record = myRecords(None, None)
         data = record.getAllRecords()
 
@@ -27,7 +27,6 @@ class menuSeeAll :
             print(f"| {rowData}")
         print("#------------------------------------------#")
 
-        # if data : print(f"res : {data}")
         return None
 
     def Options() :
@@ -35,7 +34,8 @@ class menuSeeAll :
             1 : 'Select by ID',
             2 : 'Select by First Name',
             3 : 'Select by Last Name',
-            4 : 'Back to main',
+            4 : 'Delete all the data',
+            5 : 'Back to main',
             0 : 'Exit App',
         }
     
@@ -48,7 +48,10 @@ class menuSeeAll :
                 elif option == 1 : return("findId")
                 elif option == 2 : return("findFName")
                 elif option == 3 : return("findLName")
-                elif option == 4 : return("**cancel")
+                elif option == 4 : return({
+                        "action" : "delete",
+                        "query" : "all"})
+                elif option == 5 : return("**cancel")
                 else:
                     print('Invalid! Please enter an option from the menu.')
 

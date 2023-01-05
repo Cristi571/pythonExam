@@ -22,26 +22,8 @@ class myMenuTools :
         elif self.currMenu == "seeAll" :
             menu = menuSeeAll
             
-
         try :
-            print(f"currMenu : {self.currMenu}")
-            # Let user to input data
-            # if self.currMenu == "addNew" :
-            #     data = menu.Content()
-            #     print(f"data : {data}")
-            #     if data == "cancel" :
-            #         return "main"
-
             data = menu.Content()
-            print(f"data : {data}")
-                    
-            
-            # if self.currMenu == "main" or self.currMenu == None :
-            #     menu = myMainMenu
-            # elif self.currMenu == "seeAll" :
-            #     menu = menuSeeAll
-            # elif self.currMenu == "addNew" :
-            #     menu = menuAddNew
 
             # Create and print the menu interface to display
             options = menu.Options()
@@ -50,29 +32,15 @@ class myMenuTools :
             
             # Get the user input
             decision = menu.Decisions()
-            print(f"decision : {decision}")
             print("#==========================================#")
 
 
             if self.currMenu == "addNew" and data :
                 if decision == "submit" :
                     res = menu.SubmitData(data)
-                    print(f"res : {res}")
                     if res == 'ok' :
                         self.currMenu = 'main'
                         data, options, decision = None
-
-            # elif self.currMenu == "seeAll" :
-            #     if decision == "findByID" :
-            #         print("Menu find by ID")
-            #         self.currMenu = "menuFind"
-            #     elif decision == "findByLName" :
-            #         print("Menu find by LAST NAME")
-            #     elif decision == "findByFName" :
-            #         print("Menu find by FIRST NAME")
-            #     elif decision == "cancel" :
-            #         self.currMenu = "main"
-            #         decision = None
 
             return decision
         except Exception as err :

@@ -94,8 +94,6 @@ class menuAddNew :
                     print("Invalid input, please retry.")
                     print(e)
 
-        # print(f"Data preview : \n {newRecord}")
-
         return newRecord
 
 

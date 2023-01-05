@@ -27,9 +27,7 @@ class myRecords :
     Tries to automatically determine the record ID
     """
     def AddNewRecord(self, data):
-        # print(f"data : {data}")
         if not data :
-            # print("Nothing to add.")
             return "NoData"
 
         try :
@@ -46,7 +44,6 @@ class myRecords :
             except :
                 data[0]["id"] = 1
 
-            print(f"Data preview : {data}")
             res = file.putDataIntoCSV(data)
             return res
         except Exception as err :
@@ -61,7 +58,6 @@ class myRecords :
     """"""
     def getAllRecords(self):
         try :
-            # print('Handle option \'Option 2\'')
             file = myFile(None, None)
             res = file.getAllDataFromCSV()
             return res["data"]
@@ -74,9 +70,7 @@ class myRecords :
     """"""
     def FindAllBy(self, method, query):
         try :
-            print('Handle option \'Option 3\'')
             data = self.getAllRecords()
-            print(f"data : {data}")
 
             # Prepare header data
             dataHeader = ""
@@ -102,6 +96,10 @@ class myRecords :
             
             if searchCol >= 0 :
                 for row in data["body"] :
+                    # Skip rows that do not respect data format
+                    if len(row) != 4 :
+                        continue
+
                     rowData = ""
                     if str(row[searchCol]).strip().lower() == str(query).strip().lower() :
                         count += 1
@@ -132,7 +130,7 @@ class myRecords :
     """"""
     def UpdateByID(self, id):
         try :
-            print('Handle option \'Option 6\'')
+            print('Update by ID ..')
         except Exception as e :
             print(f"An error occured : \n {e}")
 
@@ -140,12 +138,7 @@ class myRecords :
     """"""
     def DeleteAllBy(self, method, query):
         try :
-            print('Handle option \'Option 7\'')
-
             data = self.getAllRecords()
-            print(f"data : {data}")
-            print(f"method : {method}")
-            print(f"query : {query}")
             
             # Set the filter criteria
             searchCol = -1
@@ -160,11 +153,9 @@ class myRecords :
             elif method == "City" : 
                 searchCol = 4
 
-            print(f"searchCol : {searchCol}")
-            
-
-            # Prepare header data
-            dataHeader = data['head']
+            newData = []
+            # Add header data
+            newData.append(data['head'])
             
             # Prepare body data
             count = 0
@@ -174,36 +165,22 @@ class myRecords :
                     # Except/Exclude elements to delete
                     if str(row[searchCol]).strip().lower() != str(query).strip().lower() :
                         count += 1
-                        dataBody.append(row)
+                        newData.append(row)
             else :
                 print(f"Something went wrong, please retry.")
 
-            print("#------------------------------------------#")
-            if count > 0 :
-                print(f"type of dataHeader : {type(dataHeader)}")
-                print(dataHeader)
-                print("#------------------------------------------#")
-                print(f"type of dataBody : {type(dataBody)}")
-                print(dataBody)
-            else :
-                print("Nothing to delete.")
-            print("#------------------------------------------#")
-
-            data = [dataHeader.append(dataBody)]
             file = myFile(None, None)
-            res = file.ReWriteDataIntoCSV(data)
-
-            print(f"res : {res}")
-
+            file.ReWriteDataIntoCSV(newData)
 
         except Exception as e :
             print(f"An error occured : \n {e}")
 
 
     """"""
-    def DeleteAllRecords():
+    def DeleteAllRecords(self):
         try :
-            print('Handle option \'Option 8\'')
+            file = myFile(None, None)
+            newData = [['ID', ' LName', ' FName', ' Age', ' City']]
+            file.ReWriteDataIntoCSV(newData)
         except Exception as e :
             print(f"An error occured : \n {e}")
-        
