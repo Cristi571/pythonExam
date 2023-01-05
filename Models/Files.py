@@ -7,7 +7,7 @@ class myFile :
     # File constructor
     def __init__(self, root, file):
         if not root  :
-            self.root = os.path.dirname(os.path.abspath("__file__")) + "\\"
+            self.root = os.path.dirname(os.path.abspath("__file__")) + "/"
         else :
             self.root = root
 
@@ -15,6 +15,8 @@ class myFile :
             self.file = "pythonDB.csv"
         else :
             self.file = file
+
+        self.filePath = self.root + self.file
 
 
 
@@ -35,10 +37,9 @@ class myFile :
             # Prepare the res data
             headTable = []
             bodyTable = []
-            filePath = self.root + self.file
             
             # Open the csv file
-            with open(filePath, newline='') as file:
+            with open(self.filePath, newline='') as file:
                 # Read the data from csv file
                 csvReader = csv.reader(file)
                 try :
@@ -73,14 +74,10 @@ class myFile :
 
 
     def putDataIntoCSV(self, data):
-        # Access the rootPath variable
-        global csv
-        # print("<putDataIntoCSV> started ..")
         try :
-            filePath = self.root + self.file
             # Append all new data rows to the existing csv file data
             for row in data :
-                with open(filePath, 'a') as file:
+                with open(self.filePath, 'a') as file:
                     file.write(
                         "\n"+
                         str(row["id"])+", " +
@@ -95,3 +92,13 @@ class myFile :
             # Display warning message
             print(f"Can't write data into csv file because an error occured : \n {err}")
             return 'bad'
+    
+    def ReWriteDataIntoCSV(self, data) :
+        print(f"data : {data}")
+        try : 
+            with open(self.filePath, 'w') as file:
+                writer = csv.writer(file)
+                writer.writerows(data)
+            return "Data rewrited successfully."
+        except :
+            return "Coudn'n rewrite data."

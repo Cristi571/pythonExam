@@ -16,13 +16,11 @@ class myRecords :
     def __init__(self, root, file):
         if not root :
             self.root = os.path.dirname(os.path.abspath("__file__")) + "\\"
-        else :
-            self.root = root
+        else : self.root = root
 
         if not file :
             self.file = "pythonDB.csv"
-        else :
-            self.file = file
+        else : self.file = file
 
     """
     Append new row(s) to existing data in the given csv file
@@ -74,7 +72,7 @@ class myRecords :
 
 
     """"""
-    def FindOneByID(self, id):
+    def FindAllBy(self, method, query):
         try :
             print('Handle option \'Option 3\'')
             data = self.getAllRecords()
@@ -86,23 +84,33 @@ class myRecords :
                 dataHeader = f"{dataHeader}{cell} |"
             # Display header data
             dataHeader = f"| {dataHeader}"
-            # print("#------------------------------------------#")
-            # print(f"| {dataHeader}")
-            # print("#------------------------------------------#")
-            
 
             # Prepare body data
             dataBody = ""
             count = 0
-            for row in data["body"] :
-                rowData = ""
-                print(f"id {row[0]}")
-                if int(row[0]) == int(id) :
-                    count += 1
-                    for cell in row :
-                        rowData = f"{rowData}{cell} |"
-                    print()
-                    dataBody = f"{dataBody} \n| {rowData}"
+            searchCol = -1
+            if method == "ID" :
+                searchCol = 0
+            elif method == "LName" :
+                searchCol = 1
+            elif method == "FName" : 
+                searchCol = 2
+            elif method == "Age" : 
+                searchCol = 3
+            elif method == "City" : 
+                searchCol = 4
+            
+            if searchCol >= 0 :
+                for row in data["body"] :
+                    rowData = ""
+                    if str(row[searchCol]).strip().lower() == str(query).strip().lower() :
+                        count += 1
+                        for cell in row :
+                            rowData = f"{rowData}{cell} |"
+                        dataBody = f"{dataBody} \n| {rowData}"
+            else :
+                print(f"Something went wrong, please retry.")
+                
 
             print("#------------------------------------------#")
             if count > 0 :
@@ -118,26 +126,11 @@ class myRecords :
             
         except Exception as e :
             print(f"An error occured : \n {e}")
-    
 
-    """"""
-    def FindOneByFName():
-        try :
-            print('Handle option \'Option 4\'')
-        except Exception as e :
-            print(f"An error occured : \n {e}")
 
 
     """"""
-    def FindOneByLName():
-        try :
-            print('Handle option \'Option 5\'')
-        except Exception as e :
-            print(f"An error occured : \n {e}")
-
-
-    """"""
-    def UpdateOneByID(id):
+    def UpdateByID(self, id):
         try :
             print('Handle option \'Option 6\'')
         except Exception as e :
@@ -145,9 +138,64 @@ class myRecords :
 
 
     """"""
-    def DeleteOneByID():
+    def DeleteAllBy(self, method, query):
         try :
             print('Handle option \'Option 7\'')
+
+            data = self.getAllRecords()
+            print(f"data : {data}")
+            print(f"method : {method}")
+            print(f"query : {query}")
+            
+            # Set the filter criteria
+            searchCol = -1
+            if method == "ID" :
+                searchCol = 0
+            elif method == "LName" :
+                searchCol = 1
+            elif method == "FName" : 
+                searchCol = 2
+            elif method == "Age" : 
+                searchCol = 3
+            elif method == "City" : 
+                searchCol = 4
+
+            print(f"searchCol : {searchCol}")
+            
+
+            # Prepare header data
+            dataHeader = data['head']
+            
+            # Prepare body data
+            count = 0
+            dataBody = []
+            if searchCol >= 0 :
+                for row in data["body"] :
+                    # Except/Exclude elements to delete
+                    if str(row[searchCol]).strip().lower() != str(query).strip().lower() :
+                        count += 1
+                        dataBody.append(row)
+            else :
+                print(f"Something went wrong, please retry.")
+
+            print("#------------------------------------------#")
+            if count > 0 :
+                print(f"type of dataHeader : {type(dataHeader)}")
+                print(dataHeader)
+                print("#------------------------------------------#")
+                print(f"type of dataBody : {type(dataBody)}")
+                print(dataBody)
+            else :
+                print("Nothing to delete.")
+            print("#------------------------------------------#")
+
+            data = [dataHeader.append(dataBody)]
+            file = myFile(None, None)
+            res = file.ReWriteDataIntoCSV(data)
+
+            print(f"res : {res}")
+
+
         except Exception as e :
             print(f"An error occured : \n {e}")
 

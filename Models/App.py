@@ -25,7 +25,7 @@ class myApp :
         elif curr == "seeAll" :
             self.currMenu = menuSeeAll
         elif curr == "find" :
-            self.currMenu = menuFind(None)
+            self.currMenu = menuFind(None, None)
         elif curr == "update" :
             self.currMenu = menuUpdate
         elif curr == "delete" :
@@ -85,6 +85,7 @@ class myApp :
                 # Get the user input
                 decision = self.currMenu.Decisions()
                 print(f"decision : {decision}")
+                print(f"type of decision : {type(decision)}")
 
                 # print("[- Set decision.. -]")
                 if decision == "killMe" :
@@ -102,19 +103,26 @@ class myApp :
                     self.currMenu = menuSeeAll
                 elif decision == "findId" :
                     self.prevMenu = myMainMenu
-                    self.currMenu = menuFind("ID")
+                    self.currMenu = menuFind("ID", None)
                 elif decision == "findFName" :
                     self.prevMenu = myMainMenu
-                    self.currMenu = menuFind("FName")
+                    self.currMenu = menuFind("FName", None)
                 elif decision == "findLName" :
                     self.prevMenu = myMainMenu
-                    self.currMenu = menuFind("LName")
+                    self.currMenu = menuFind("LName", None)
+                elif decision == "findAge" :
+                    self.prevMenu = myMainMenu
+                    self.currMenu = menuFind("Age", None)
+                elif decision == "findCity" :
+                    self.prevMenu = myMainMenu
+                    self.currMenu = menuFind("City", None)
                 elif decision == "update" :
                     self.prevMenu = myMainMenu
                     self.currMenu = menuUpdate
-                elif decision == "delete" :
-                    self.prevMenu = myMainMenu
-                    self.currMenu = menuDelete
+                elif type(decision) == dict :
+                    if decision['action'] == "delete" :
+                        self.prevMenu = myMainMenu
+                        self.currMenu = menuDelete(decision["query"])
                 elif decision == "submit" :
                         res = self.currMenu.SubmitData(data)
                         self.currMenu = myMainMenu

@@ -10,3 +10,4 @@ except Exception as err :
     # print("#- Main exception : -#")
     print(f"{err}")
     app.kill()
+

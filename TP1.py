@@ -33,7 +33,7 @@ import re
 # Import local dependencies and classes
 from Models.App import App
 from Models.Files import File
-from Models.Data import Data
+# from Models.Data import Data
 
 # rootPath = "/Users/fr146574/Desktop/ESTIAM/E4_2022-2023/COURS/Python/Cours3/"
 
@@ -84,9 +84,9 @@ class Menus :
                     return None
                 elif option == 1: Menus.MainMenu.AddNewRecord()
                 elif option == 2: Menus.MainMenu.getAllRecords()
-                elif option == 3: Menus.MainMenu.FindOneByID()
-                elif option == 4: Menus.MainMenu.FindOneByFName()
-                elif option == 5: Menus.MainMenu.FindOneByLName()
+                elif option == 3: Menus.MainMenu.FindAllByID()
+                elif option == 4: Menus.MainMenu.FindAllByFName()
+                elif option == 5: Menus.MainMenu.FindAllByLName()
                 elif option == 6: Menus.MainMenu.UpdateOneByID()
                 elif option == 7: Menus.MainMenu.DeleteOneByID()
                 else:
@@ -129,9 +129,9 @@ class Menus :
                     App.kill()
                     return 'exit'
                 elif option == 1: Menus.MainMenu.AddNewRecord()
-                elif option == 2: Menus.MainMenu.FindOneByID()
-                elif option == 3: Menus.MainMenu.FindOneByFName()
-                elif option == 4: Menus.MainMenu.FindOneByLName()
+                elif option == 2: Menus.MainMenu.FindAllByID()
+                elif option == 3: Menus.MainMenu.FindAllByFName()
+                elif option == 4: Menus.MainMenu.FindAllByLName()
                 elif option == 5: Menus.MainMenu.UpdateOneByID()
                 elif option == 6: Menus.MainMenu.DeleteOneByID()
                 elif option == 7: Menus.MainMenu.DeleteAllRecords()
