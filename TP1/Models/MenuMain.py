@@ -30,7 +30,6 @@ class myMainMenu :
         try:
             while True :
                 option = int(input('| Enter your choice: '))
-                # print("|------------------------------------------|\n")
                 if option == 0 : return "killMe"
                 elif option == "**": return "**cancel"
                 elif option == 1 : return("addNew")
@@ -46,8 +45,6 @@ class myMainMenu :
                     print('Invalid! Please chose an option from the menu.')
 
         except Exception as e: 
-            # print("An error occured : ")
-            # print(e)
             print('Wrong input! Please enter a number.')
 
         return None

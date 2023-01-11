@@ -31,7 +31,6 @@ class menuFind :
                     record = myRecords(None, None)
                     res = record.FindAllBy("ID", userInput)
                     self.query = {"ID" : userInput}
-                    print(f"res : {res}")
                     break
                 else :
                     print("Invalid. IDs can contain only digits")
@@ -41,7 +40,6 @@ class menuFind :
                     record = myRecords(None, None)
                     res = record.FindAllBy("FName", userInput)
                     self.query = {"FName" : userInput}
-                    print(f"res : {res}")
                     break
                 else :
                     print("Invalid! Only alphabetical, spaces and \"**\" are allowed.")

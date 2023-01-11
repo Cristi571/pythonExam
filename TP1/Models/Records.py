@@ -27,9 +27,7 @@ class myRecords :
     Tries to automatically determine the record ID
     """
     def AddNewRecord(self, data):
-        # print(f"data : {data}")
         if not data :
-            # print("Nothing to add.")
             return "NoData"
 
         try :
@@ -46,7 +44,6 @@ class myRecords :
             except :
                 data[0]["id"] = 1
 
-            print(f"Data preview : {data}")
             res = file.putDataIntoCSV(data)
             return res
         except Exception as err :
@@ -61,7 +58,6 @@ class myRecords :
     """"""
     def getAllRecords(self):
         try :
-            # print('Handle option \'Option 2\'')
             file = myFile(None, None)
             res = file.getAllDataFromCSV()
             return res["data"]
@@ -74,9 +70,7 @@ class myRecords :
     """"""
     def FindAllBy(self, method, query):
         try :
-            print('Handle option \'Option 3\'')
             data = self.getAllRecords()
-            print(f"data : {data}")
 
             # Prepare header data
             dataHeader = ""
@@ -132,7 +126,7 @@ class myRecords :
     """"""
     def UpdateByID(self, id):
         try :
-            print('Handle option \'Option 6\'')
+            print('Extra option Update by ID not ready yet..')
         except Exception as e :
             print(f"An error occured : \n {e}")
 
@@ -140,12 +134,7 @@ class myRecords :
     """"""
     def DeleteAllBy(self, method, query):
         try :
-            print('Handle option \'Option 7\'')
-
             data = self.getAllRecords()
-            print(f"data : {data}")
-            print(f"method : {method}")
-            print(f"query : {query}")
             
             # Set the filter criteria
             searchCol = -1
@@ -158,10 +147,7 @@ class myRecords :
             elif method == "Age" : 
                 searchCol = 3
             elif method == "City" : 
-                searchCol = 4
-
-            print(f"searchCol : {searchCol}")
-            
+                searchCol = 4            
 
             # Prepare header data
             dataHeader = data['head']
@@ -193,9 +179,6 @@ class myRecords :
             file = myFile(None, None)
             res = file.ReWriteDataIntoCSV(data)
 
-            print(f"res : {res}")
-
-
         except Exception as e :
             print(f"An error occured : \n {e}")
 
@@ -203,7 +186,7 @@ class myRecords :
     """"""
     def DeleteAllRecords():
         try :
-            print('Handle option \'Option 8\'')
+            print('Extra option Delete all not ready yet..')
         except Exception as e :
             print(f"An error occured : \n {e}")
         

@@ -36,7 +36,6 @@ class menuDelete :
         try:
             while True :
                 option = int(input('| Enter your choice: '))
-                # print("|------------------------------------------|\n")
                 if option == 0 : return("killMe")
                 elif option == 1 : return("seeAll")
                 elif option == 2 : return("findId")
@@ -49,15 +48,11 @@ class menuDelete :
                     print('Invalid! Please chose an option from the menu.')
 
         except Exception as e: 
-            # print("An error occured : ")
-            # print(e)
             print('Wrong input! Please enter a number.')
+            
         return None
     
     def DeleteBy(self, query) :
-        print(f"Deleting ..")
-        print(f"query : {query.keys()}")
-        print(f"data : {query.items()}")
         record = myRecords(None, None)
         for key, item in query.items() :
             record.DeleteAllBy(key, item)

@@ -42,7 +42,6 @@ class menuAddNew :
                             print("Invalid! First name can not be empty.")
                         # Use RegEx to validate inputs
                         elif(re.match("^[a-zA-Z_ àâçéèêëîïôûùüÿñæœ]+$", userInput)) :
-                            # print("[- Valid input. -]")
                             newRecord[0]["fname"] = string.capwords(userInput)
                             break # Valid input, pass to next
                         else : 
@@ -82,7 +81,6 @@ class menuAddNew :
                             break # Valid input, pass to next
                         # Use RegEx to validate inputs
                         elif(re.match("^[a-zA-Z_ àâçéèêëîïôûùüÿñæœ]+$", userInput)) :
-                            # print("[- Valid input. -]")
                             # Capitalize city name
                             newRecord[0]["city"] = string.capwords(userInput)
                             break # Valid input, pass to next
@@ -93,8 +91,6 @@ class menuAddNew :
                 except Exception as e :
                     print("Invalid input, please retry.")
                     print(e)
-
-        # print(f"Data preview : \n {newRecord}")
 
         return newRecord
 
@@ -124,14 +120,13 @@ class menuAddNew :
                     print('Invalid! Please enter an option from the menu.')
 
             except Exception as e: 
+                print('Wrong input! Please enter a number.')
                 print("An error occured : ")
                 print(e)
-                print('Wrong input! Please enter a number.')
     
 
     def SubmitData(data) :
         try :
-            print("[- Submitting new record.. -]")
             record = myRecords(None, None)
             return record.AddNewRecord(data)
 

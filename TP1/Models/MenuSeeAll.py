@@ -6,7 +6,6 @@ from Models.Records import myRecords
 
 class menuSeeAll :
     def Content() :
-        print(" See all ...")
         record = myRecords(None, None)
         data = record.getAllRecords()
 
@@ -27,7 +26,6 @@ class menuSeeAll :
             print(f"| {rowData}")
         print("#------------------------------------------#")
 
-        # if data : print(f"res : {data}")
         return None
 
     def Options() :
